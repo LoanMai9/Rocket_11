@@ -1,18 +1,24 @@
+-- tao database TestingSystem1
 DROP DATABASE IF EXISTS TestingSystem1;
 CREATE DATABASE TestingSystem1;
 USE TestingSystem1;
 
+-- tao bang Department
 DROP TABLE IF EXISTS Department;
 CREATE TABLE Department(
 	DepartmentID 			TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     DepartmentName 			NVARCHAR(30) NOT NULL UNIQUE KEY
 );
+
+-- tao bang Position
+
 DROP TABLE IF EXISTS `Position`;
 CREATE TABLE `Position`(
 	PositionID 				TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	PositionName 			ENUM('Dev','Test','Scrum Master','PM') NOT NULL UNIQUE KEY
     );
 
+-- tao bang Account
 DROP TABLE IF EXISTS `Account`;
 CREATE TABLE `Account`(
 	AccountID 				TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -26,6 +32,7 @@ CREATE TABLE `Account`(
 	FOREIGN KEY(PositionID) REFERENCES `Position`(PositionID)     
 );
 
+-- tao bang Group
 DROP TABLE IF EXISTS `Group`;
 CREATE TABLE `Group`(
 	GroupID 				TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -35,6 +42,7 @@ CREATE TABLE `Group`(
     FOREIGN KEY(CreatorID) REFERENCES `Account`(AccountID)
     );
     
+    -- tao bang GroupAccount
 DROP TABLE IF EXISTS GroupAccount;
 CREATE TABLE GroupAccount(
 	GroupID					TINYINT UNSIGNED NOT NULL,
@@ -44,17 +52,21 @@ CREATE TABLE GroupAccount(
     FOREIGN KEY(GroupID) 		REFERENCES `Group`(GroupID) 
 );
 
+-- tao bang TypeQuestion
 DROP TABLE IF EXISTS TypeQuestion;
 CREATE TABLE TypeQuestion(
 	TypeID 					TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	TypeName 				ENUM('Essay','Multiple-Choice') NOT NULL UNIQUE KEY
     );  
+    
+    -- tao bang CategoryQuestion
 DROP TABLE IF EXISTS CategoryQuestion;
 CREATE TABLE CategoryQuestion(
 	CategoryID 				TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	CategoryName 			NVARCHAR(50) NOT NULL UNIQUE KEY
     );  
     
+    -- tao bang Question
 DROP TABLE IF EXISTS Question;
 CREATE TABLE Question(
 	QuestionID 				TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -68,6 +80,7 @@ CREATE TABLE Question(
     FOREIGN KEY(CreatorID) 	REFERENCES `Account`(AccountID)
     );
     
+    -- tao bang Answer
 DROP TABLE IF EXISTS Answer;
 CREATE TABLE Answer(
     AnswerID				TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -77,6 +90,7 @@ CREATE TABLE Answer(
     FOREIGN KEY(QuestionID) REFERENCES Question(QuestionID)
 );
 
+-- tao bang Exam
 DROP TABLE IF EXISTS Exam;
 CREATE TABLE Exam(
 	ExamID 					TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -90,6 +104,7 @@ CREATE TABLE Exam(
 	FOREIGN KEY(CreatorID) REFERENCES `Account`(AccountID)     
 );
 
+-- tao bang ExamQuestion
 DROP TABLE IF EXISTS ExamQuestion;
 CREATE TABLE ExamQuestion(
 	ExamID 					TINYINT UNSIGNED NOT NULL,
@@ -98,7 +113,7 @@ CREATE TABLE ExamQuestion(
     FOREIGN KEY(QuestionID) REFERENCES Question(QuestionID),
     PRIMARY KEY(ExamID,QuestionID)
     );
-    -- Insert 
+    -- Insert  vao Department
 INSERT INTO 	Department(DepartmentName)
 VALUES 			(N'Director room'),
 				(N'Marketing'),
@@ -106,12 +121,14 @@ VALUES 			(N'Director room'),
 				(N'Security office'),
 				(N'Finance bureau');
 			
+           -- Insert  vao Position
 INSERT INTO     `Position`(PositionName)
 VALUES			('Dev'),
 				('Test'),
                 ('Scrum Master'),
                 ('PM');
                 
+			-- Insert  vao Account
 INSERT INTO     `Account`(Email,	 		Username,		 FullName, 				DepartmentID, 	PositionID, 		CreateDate)
 VALUES			('account1@gmail.com',		'tuananh', 		'Mai Tuấn Anh', 			'1',			'2', 			'2021-03-02' ),
 				('account2@gmail.com',	    'anhtuan', 		'Mai Anh Tuấn', 			'2',			'3', 			'2021-03-03'),
@@ -119,6 +136,7 @@ VALUES			('account1@gmail.com',		'tuananh', 		'Mai Tuấn Anh', 			'1',			'2', 	
                 ('account4@gmail.com', 		'ducthanh',		 'Trần Đức Thành', 			'4',			'3', 			'2021-03-04'),
                 ('account5@gmail.com',		'dinhthang', 	 'Hoàng Đình Thắng', 		'5',			'1', 			'2021-03-05');
                 
+			-- Insert  vao Group
 INSERT INTO     `Group`(GroupName,      CreatorID,           CreateDate)
 VALUES					(N'Development',	2,				 '2019-03-05'),
 						(N'Sale',			4,				 '2020-03-07'),
@@ -126,16 +144,21 @@ VALUES					(N'Development',	2,				 '2019-03-05'),
                         (N'Management',		5,				 '2020-03-10'),
                         (N'Testing System',	1,				 '2020-03-28');
                         
+			-- Insert  vao GroupAccount
+                        
 INSERT INTO `GroupAccount`	(  GroupID	, AccountID	, JoinDate	 )
 VALUES 						(	1		,    1		,'2020-03-05'),
 							(	1		,    2		,'2020-03-07'),
 							(	3		,    3		,'2020-03-09'),
 							(	3		,    4		,'2020-03-10'),
 							(	5		,    5		,'2020-03-28');
-                            
+						
+		-- Insert  vao TypeQuestion
 INSERT INTO TypeQuestion	(TypeName			) 
 VALUES 						('Essay'			), 
 							('Multiple-Choice'	); 
+		
+        -- Insert  vao CategoryQuestion
                             
 INSERT INTO CategoryQuestion		(CategoryName	)
 VALUES 								('Java'			),
@@ -146,6 +169,8 @@ VALUES 								('Java'			),
 									('Python'		),
 									('C++'			),
 									('PHP'			);
+                                    
+		-- Insert  vao Question
 
 INSERT INTO Question(Content			, 	CategoryID, 	TypeID		, CreatorID	, CreateDate )
 VALUES				(N'Câu hỏi về Java', 		1,			'1',				'2',	'2020-04-05'),
@@ -156,7 +181,8 @@ VALUES				(N'Câu hỏi về Java', 		1,			'1',				'2',	'2020-04-05'),
                     (N'Câu hỏi về SQL',    		3,			'1',				'2',	'2020-04-06'),
                     (N'Câu hỏi về PHP',    		8,			'2',				'4',	'2020-04-07'),
                     (N'Câu hỏi về Python',      6,			'1',				'5',	'2020-04-07');
-                    
+	
+    -- Insert  vao Answer
 INSERT INTO Answer	(  Content		, QuestionID	, isCorrect	)
 VALUES 				(N'Trả lời 01'	,   1			,	0		),
 					(N'Trả lời 02'	,   5			,	1		),
@@ -166,6 +192,7 @@ VALUES 				(N'Trả lời 01'	,   1			,	0		),
                     (N'Trả lời 06'	,   3			,	1		),
                     (N'Trả lời 07'	,   4			,	0		),
                     (N'Trả lời 08'	,   8			,	0		);
+-- Insert  vao Exam
                     
 INSERT INTO Exam	(`Code`			, Title					, CategoryID	, Duration	, CreatorID		, CreateDate )
 VALUES 				('VTIQ001'		, N'Đề thi ASP.NET'		,	2			,	60		,   '5'			,'2021-04-05'),
@@ -176,7 +203,8 @@ VALUES 				('VTIQ001'		, N'Đề thi ASP.NET'		,	2			,	60		,   '5'			,'2021-04-0
                     ('VTIQ006'		, N'Đề thi Postman'		,	4			,	60		,   '2'			,'2021-04-05'),
                     ('VTIQ007'		, N'Đề thi SQL'			,	3			,	60		,   '1'			,'2021-04-05'),
                     ('VTIQ008'		, N'Đề thi Python'		,	6			,	60		,   '3'			,'2021-04-07');
-                    
+	
+    -- Insert  vao ExamQuestion
 INSERT INTO ExamQuestion(ExamID	, QuestionID	) 
 VALUES 					(	1	,		5		),
 						(	2	,		1		), 

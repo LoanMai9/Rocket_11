@@ -1,3 +1,4 @@
+-- tao database Fresher_management
 DROP DATABASE IF EXISTS Fresher_management;
 CREATE DATABASE Fresher_management;
 USE Fresher_management;
@@ -24,7 +25,7 @@ CREATE TABLE Exercise2(
 	ID				MEDIUMINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     `Name`			VARCHAR(50) NOT NULL,
     `Code`			CHAR(5) NOT NULL,
-    ModifiedDate	TIMESTAMP      -- DATETIME DEFAULT NOW()
+    ModifiedDate	TIMESTAMP      -- or DATETIME DEFAULT NOW()
 );
 
 -- Exercise3
