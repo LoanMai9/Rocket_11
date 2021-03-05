@@ -285,15 +285,15 @@ WHERE p.PositionName = 'Dev' ;
 -- Question 12: Viết lệnh để lấy ra danh sách các phòng ban có >3 nhân viên
 SELECT 		d.DepartmentID, DepartmentName, COUNT(a.DepartmentID) AS 'SO LUONG'
 FROM 		`Account` a 
-INNER JOIN Department  d ON			d.DepartmentID = d.DepartmentID
+JOIN Department  d ON			d.DepartmentID = d.DepartmentID
 GROUP BY 	a.DepartmentID
 HAVING 		COUNT(a.DepartmentID)>3;
 
 
  -- Question 13: Viết lệnh để lấy ra danh sách câu hỏi được sử dụng trong đề thi nhiều nhất
  SELECT 		Q.QuestionID, Q.Content, Q.CategoryID, Q.TypeID, Q.CreatorID, Q.CreateDate, Count(Q.Content) AS 'SO LUONG'
-FROM		Question Q INNER JOIN ExamQuestion EQ
-ON			Q.QuestionID = EQ.QuestionID
+FROM		Question Q 
+INNER JOIN ExamQuestion EQ ON Q.QuestionID = EQ.QuestionID
 GROUP BY	Q.Content
 HAVING		COUNT(Q.Content) = (SELECT		MAX(CountQ)
 								FROM		
@@ -310,16 +310,10 @@ GROUP BY	CQ.CategoryID
 ORDER BY	CQ.CategoryID ASC;
 
 -- Question 15: Lấy ra Question có nhiều câu trả lời nhất
-/* SELECT a.Content, MAX(a.QuestionID)
-FROM answer a
-JOIN question q ON a.QuestionID = q.QuestionID
-GROUP BY an.QuestionID
-HAVING ( SELECT MAX(QuestionID)
-		FROM answer);*/
-        
+
 SELECT 		Q.QuestionID, Q.Content, COUNT(A.QuestionID) AS 'SO LUONG'
-FROM		Question Q INNER JOIN Answer A 
-ON			Q.QuestionID = A.QuestionID
+FROM		Question Q 
+INNER JOIN Answer A ON			Q.QuestionID = A.QuestionID
 GROUP BY	A.QuestionID
 HAVING		COUNT(A.QuestionID) =	(SELECT 	MAX(CountQ)
 									FROM		(SELECT 		COUNT(A.QuestionID) AS CountQ
@@ -328,9 +322,33 @@ HAVING		COUNT(A.QuestionID) =	(SELECT 	MAX(CountQ)
 												GROUP BY		A.QuestionID) AS MaxCountQ);
 
 -- Question 16: Tìm chức vụ có ít người nhất
+SELECT P.PositionID, P.PositionName, COUNT(A.PositionID)
+FROM Position P 
+JOIN `Account` A On P.PositionID= A.PositionID
+GROUP BY P.PositionID
+HAVING A.PositionID= 
+
+
+
 
 -- Question 17: Thống kê mỗi phòng ban có bao nhiêu dev, test, scrum master, PM
+
+SELECT 		D.DepartmentID, D.DepartmentName, COUNT(P.PositionID) AS 'SO LUONG'
+FROM		Position P INNER JOIN `Account` A 
+ON			P.PositionID = A.PositionID
+INNER JOIN	Department D
+ON			A.DepartmentID = D.DepartmentID
+GROUP BY	A.DepartmentID
+ORDER BY	A.DepartmentID ASC;
+
 -- Question 18: Lấy thông tin chi tiết của câu hỏi bao gồm: thông tin cơ bản của question, loại câu hỏi, ai là người tạo ra câu hỏi, câu trả lời là gì, …
+
+SELECT 		T.TypeName AS 'LOAI CAU HOI', Q.CreatorID AS 'ID NGUOI TAO', Q.Content AS 'CAU HOI', A.Content AS 'CAU TRA LOI', Q.CreateDate AS 'NGAY TAO'
+FROM		Question Q INNER JOIN Answer A
+ON			Q.QuestionID = A.QuestionID
+INNER JOIN	TypeQuestion T
+ON			Q.TypeID = T.TypeID;
+
 -- Question 19: Lấy ra số lượng câu hỏi của mỗi loại tự luận hay trắc nghiệm
 
 SELECT tq.TypeID, COUNT(QuestionID)
