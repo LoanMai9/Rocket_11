@@ -31,13 +31,13 @@ CREATE VIEW acctgianhieugroup AS (
                         ;
                         
 -- Question 3: Tạo view có chứa câu hỏi có những content quá dài (content quá 300 từ được coi là quá dài) và xóa nó đi
-CREATE OR REPLACE VIEW vw_ContenTren18Tu
+CREATE OR REPLACE VIEW ContenTren18Tu
 AS
 SELECT 	LENGTH(Content)
 FROM	Question
 WHERE	LENGTH(Content) > 18;
-SELECT * FROM vw_ContenTren18Tu;
-DROP VIEW vw_ContenTren18Tu;
+SELECT * FROM ContenTren18Tu;
+DROP VIEW ContenTren18Tu;
 
 
 -- Question 4: Tạo view có chứa danh sách các phòng ban department có nhiều nhân viên account nhất
@@ -59,7 +59,7 @@ SELECT * FROM DepartmentMaxAccount;
 
 
 -- Question 5: Tạo view có chứa tất các các câu hỏi do user họ Nguyễn tạo
-CREATE OR REPLACE VIEW vw_QuesHoNguyen
+CREATE OR REPLACE VIEW QuesHoNguyen
 AS
 SELECT 		Q.*, A.FullName
 FROM 		Question Q
