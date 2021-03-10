@@ -15,7 +15,15 @@ WHERE	ProductSubcategoryID = (SELECT   `Name`
                                 
 -- Question 3: Viết câu query trả về tất cả các sản phẩm có giá rẻ nhất (lowest ListPrice) và Touring Bike (nghĩa là ProductSubcategoryID = 3)
     -- lấy ra tất cả sản phẩm có ProductSubcategoryID=3
-    SELECT `Name`
+    WITH ProductSubToringBike AS
+    (
+			SELECT ProductSubcategoryID
+            FROM productsubcategory
+            WHERE `Name`LIKE '%Touring Bike%'
+    ),
+    ProductouringBike AS(
+    )
+    SELECT *
     FROM Product
     WHERE ListPrice =(SELECT 	MIN(ListPrice)
 						FROM 	Product

@@ -1,5 +1,6 @@
 
 -- Question 1: Tạo view có chứa danh sách nhân viên thuộc phòng ban sale
+DROP VIEW IF EXISTS dsnhanviensale;
 CREATE VIEW dsnhanviensale AS
 ( SELECT *
 FROM `Account` 
@@ -8,7 +9,7 @@ WHERE DepartmentID = (	SELECT DepartmentID
                         WHERE DepartmentName =N'Sale'));
                         
 -- Question 2 thông tin các account tham gia vào nhiều group nhất
-
+DROP VIEW IF EXISTS acctgianhieugroup;
 CREATE VIEW acctgianhieugroup AS (
      SELECT AccountID, COUNT(GroupID) as sluong
         FROM groupaccount
@@ -31,16 +32,16 @@ CREATE VIEW acctgianhieugroup AS (
                         ;
                         
 -- Question 3: Tạo view có chứa câu hỏi có những content quá dài (content quá 300 từ được coi là quá dài) và xóa nó đi
+DROP VIEW IF EXISTS ContenTren18Tu;
 CREATE OR REPLACE VIEW ContenTren18Tu
 AS
 SELECT 	LENGTH(Content)
 FROM	Question
 WHERE	LENGTH(Content) > 18;
 SELECT * FROM ContenTren18Tu;
-DROP VIEW ContenTren18Tu;
-
 
 -- Question 4: Tạo view có chứa danh sách các phòng ban department có nhiều nhân viên account nhất
+DROP VIEW IF EXISTS DepartmentMaxAccount;
  CREATE OR REPLACE VIEW DepartmentMaxAccount AS
 SELECT 		D.*, COUNT(A.DepartmentID)
 FROM		Department D 

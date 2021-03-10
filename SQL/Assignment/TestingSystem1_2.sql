@@ -221,7 +221,7 @@ SELECT *
 FROM Department;
 
 -- Question 2: lấy ra id của phòng ban có tên là "Sale"
-SELECT * 
+SELECT DepartmentID
 FROM Department
 WHERE DepartmentName ="Sale";
 
@@ -272,30 +272,29 @@ SET FullName= "Hà Văn Hanh", Email ="hanh.havan@vti.com.vn"
 WHERE AccountID =1;
 
 -- Question 10: Viết lệnh để lấy ra danh sách nhân viên và thông tin phòng ban của họ
-SELECT *
+SELECT a.FullName, a.Email, d.DepartmentName
 FROM `Account` a 
 JOIN department d ON a.DepartmentID = d.DepartmentID;
 
 -- Question 11: Viết lệnh để lấy ra tất cả các developer
-SELECT *
+SELECT a.FullName, a.Email, p.PositionName
 FROM `Account` a 
 JOIN Position p On a.PositionID= p.PositionID
 WHERE p.PositionName = 'Dev' ; 
 
 -- Question 12: Viết lệnh để lấy ra danh sách các phòng ban có >3 nhân viên
-SELECT 		d.DepartmentID, DepartmentName, COUNT(a.DepartmentID) AS 'SO LUONG'
+SELECT 		d.DepartmentID, d.DepartmentName, COUNT(a.DepartmentID) AS 'SO LUONG'
 FROM 		`Account` a 
-JOIN Department  d ON			d.DepartmentID = d.DepartmentID
+JOIN Department  d ON a.DepartmentID = d.DepartmentID
 GROUP BY 	a.DepartmentID
 HAVING 		COUNT(a.DepartmentID)>3;
 
-
  -- Question 13: Viết lệnh để lấy ra danh sách câu hỏi question  được sử dụng trong đề thi nhiều nhất
- SELECT q.QuestionID, q.Content, COUNT(q.QuestionID)
+ SELECT q.QuestionID, q.Content, COUNT(eq.QuestionID)
  FROM Question q
  JOIN examquestion eq ON q.QuestionID=eq.QuestionID
- GROUP BY q.QuestionID
- Having COUNT(q.QuestionID)= (SELECT Max(soluongq)
+ GROUP BY eq.QuestionID
+ Having COUNT(eq.QuestionID)= (SELECT Max(soluongq)
 							  FROM (SELECT COUNT(QuestionID) as soluongq
 									FROM examquestion
 									GROUP BY QuestionID) as maxquestion);
