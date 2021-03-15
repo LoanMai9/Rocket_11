@@ -343,6 +343,23 @@ BEGIN
     RETURN 	out_department_name;
 END$$
 DELIMITER ;
+-- câu 3 testingexam
+SET GLOBAL log_bin_trust_function_creators = 1;
+DROP function if exists f_ten_hang
+DELIMITER $$
+CREATE FUNCTION f_ten_hang() RETURNS VARCHAR(50)
+BEGIN
+DECLARE v_tenhang VARCHAR(50);
+		SELECT Maker INTO v_tenhang
+		FROM (
+		SELECT c.Maker, SUM(co.Amount) AS tong
+		FROM car c 
+		JOIN car_order co ON c.CarID=co.CarID
+		WHERE YEAR(now()) = YEAR(DeliveryDate) AND Staus = 1
+		GROUP BY c.Maker) as ab;
+        return v_tenhang;
+END$$
+DELIMITER ;
 
 -- Question 5: Sử dụng store ở question 4 để tìm ra tên của type question
 DROP PROCEDURE IF EXISTS typequestionnamemax;
@@ -399,8 +416,19 @@ BEGIN
 
 END$$
 DELIMITER ;
-                    	
+       
+Call sp_insertAccount('daonq@viettel.com.vn','Nguyen dao');
+             	
 --  Question 8: Viết 1 store cho phép người dùng nhập vào Essay hoặc Multiple-Choice để thống kê câu hỏi essay hoặc multiple-choice nào có content dài nhất
+
+
+
+
+
+
+
+
+
 
 
 -- Question 9: Viết 1 store cho phép người dùng xóa exam dựa vào ID
@@ -420,6 +448,7 @@ DELIMITER ;
 
 -- Question 10: Tìm ra các exam được tạo từ 3 năm trước và xóa các exam đó đi (sử dụng store ở câu 9 để xóa Sau đó in số lượng record đã 
 			-- remove từ các table liên quan trong khi removing
+            
             
 -- Question 11: Viết store cho phép người dùng xóa phòng ban bằng cách người dùng nhập vào tên phòng ban và các account thuộc phòng ban đó sẽ được 
 				-- chuyển về phòng ban default là phòng ban chờ việc

@@ -258,7 +258,7 @@ DELETE
 FROM examquestion
 WHERE ExamID IN (SELECT ExamID
 				FROM exam
-				WHERE CreateDate < '2021-04-07');
+				WHERE CreateDate < '2021-04-06');
 
 commit;
 
@@ -356,7 +356,6 @@ JOIN Answer a ON q.QuestionID = a.QuestionID
 JOIN typequestion tq ON q.TypeID = tq.TypeID;
 
 -- Question 19: Lấy ra số lượng câu hỏi của mỗi loại tự luận hay trắc nghiệm
-
 SELECT tq.TypeID, COUNT(QuestionID)
 FROM Question q 
 JOIN typequestion tq ON q.TypeID = tq.TypeID
