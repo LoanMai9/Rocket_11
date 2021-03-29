@@ -1,5 +1,15 @@
 eclipse.preferences.version=1
+encoding//src/com/vti/academy/backend/QLCB.java=UTF-8
+encoding//src/com/vti/academy/backend/QLTV.java=UTF-8
 encoding//src/com/vti/academy/backend/Question1Encapsulation.java=UTF-8
 encoding//src/com/vti/academy/entity/Department.java=UTF-8
 encoding//src/com/vti/academy/entity/Encapsulation/Student.java=UTF-8
-encoding//src/com/vti/academy/frontend/Program1.java=UTF-8
+encoding//src/com/vti/academy/entity/Inheritance/Question1_2/CanBo.java=UTF-8
+encoding//src/com/vti/academy/entity/Inheritance/Question1_2/CongNhan.java=UTF-8
+encoding//src/com/vti/academy/entity/Inheritance/Question1_2/KySu.java=UTF-8
+encoding//src/com/vti/academy/entity/Inheritance/Question1_2/NhanVien.java=UTF-8
+encoding//src/com/vti/academy/entity/Inheritance/Question4/Bao.java=UTF-8
+encoding//src/com/vti/academy/entity/Inheritance/Question4/Sach.java=UTF-8
+encoding//src/com/vti/academy/entity/Inheritance/Question4/TaiLieu.java=UTF-8
+encoding//src/com/vti/academy/entity/Inheritance/Question4/TapChi.java=UTF-8
+encoding//src/com/vti/academy/frontend/InherianceProgram.java=UTF-8
