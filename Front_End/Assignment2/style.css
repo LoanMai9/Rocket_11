@@ -1,0 +1,84 @@
+.margin{
+    margin: 70px;
+    border: 1px solid;
+  }
+  .padding{
+    padding: 70px;
+  }
+  .text-align{
+    text-align: center;
+  }
+  .blue{
+    color: blue;
+  }
+  .green{
+    color: green;
+  }
+  .backpink{
+    background-color: pink;
+  }
+  .backyellow{
+    background-color: yellow;
+  }
+  hr{
+    width: 50%;
+  }
+  .red{
+    color: red;
+  }
+  .border{
+    border: 2px solid;
+  }
+  span{
+    color: red;
+  }
+  .row{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+  }
+  .col12{
+    width: 100%;
+    display: inline-block;
+  }
+  .col3{
+    width: 25%;
+    display: inline-block;
+  }
+  .col9{
+    width: 75%;
+    display: inline-block;
+  }
+  .background{
+    background-color: burlywood;
+  }
+  .brown{
+    color: brown;
+  }
+  table,tr, td,th{
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+  .STT {
+    width: 75px;
+    color: white;
+  }
+  .Ten{
+    width: 300px;
+    color: white;
+  }
+  .backbrown{
+    background-color: brown;
+  }
+  .backwhite{
+    background-color: white;
+  }
+  table.center { width: 780px; margin-left: auto; margin-right: auto; }
+  .white{
+    background-color: red;
+    color: white;
+  }
