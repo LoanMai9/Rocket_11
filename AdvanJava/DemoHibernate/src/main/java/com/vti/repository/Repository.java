@@ -2,18 +2,23 @@ package com.vti.repository;
 
 import java.util.List;
 
+
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
+import com.vti.entity.Answer;
 import com.vti.entity.Exam;
 import com.vti.entity.Group;
 import com.vti.entity.Image;
 import com.vti.entity.Question;
+import com.vti.entity.QuestionCategory;
+import com.vti.entity.QuestionLevel;
 import com.vti.entity.RegistrationUserToken;
 import com.vti.entity.ResetPasswordToken;
 import com.vti.entity.Testing;
 import com.vti.entity.TestingCategory;
 import com.vti.entity.User;
+import com.vti.entity.UserGroup;
 import com.vti.utils.HibernateUtils;
 
 public class Repository {
@@ -207,6 +212,90 @@ public class Repository {
 
 			// create hql query
 			Query<ResetPasswordToken> query = session.createQuery("FROM ResetPasswordToken");
+
+			return query.list();
+
+		} finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Answer> getAllAnswers() {
+		Session session = null;
+
+		try {
+
+			// get session
+			session = hibernateUtils.openSession();
+
+			// create hql query
+			Query<Answer> query = session.createQuery("FROM Answer ");
+
+			return query.list();
+
+		} finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<QuestionCategory> getAllQuestionCategorys() {
+		Session session = null;
+
+		try {
+
+			// get session
+			session = hibernateUtils.openSession();
+
+			// create hql query
+			Query<QuestionCategory> query = session.createQuery("FROM QuestionCategory ");
+
+			return query.list();
+
+		} finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<QuestionLevel> getAllQuestionLevels() {
+		Session session = null;
+
+		try {
+
+			// get session
+			session = hibernateUtils.openSession();
+
+			// create hql query
+			Query<QuestionLevel> query = session.createQuery("FROM QuestionLevel ");
+
+			return query.list();
+
+		} finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<UserGroup> getAllUserGroups() {
+		Session session = null;
+
+		try {
+
+			// get session
+			session = hibernateUtils.openSession();
+
+			// create hql query
+			Query<UserGroup> query = session.createQuery("FROM UserGroup ");
 
 			return query.list();
 

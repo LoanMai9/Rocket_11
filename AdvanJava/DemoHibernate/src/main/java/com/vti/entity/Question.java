@@ -2,13 +2,18 @@ package com.vti.entity;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -41,6 +46,30 @@ public class Question {
 	@Column(name = "version", nullable = false)
 	@ColumnDefault("1")
 	private short version;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "author_ID", nullable = false)
+	private User author;
+
+	public User getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(User author) {
+		this.author = author;
+	}
+
+	public Image getImage() {
+		return image;
+	}
+
+	public void setImage(Image image) {
+		this.image = image;
+	}
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "Image_ID", referencedColumnName = "id")
+	private Image image;
 
 	@Column(name = "create_time", nullable = false, updatable = false, insertable = false)
 	@Temporal(TemporalType.TIMESTAMP)
@@ -102,8 +131,10 @@ public class Question {
 	@Override
 	public String toString() {
 		return "Question [id=" + id + ", title=" + title + ", type=" + type + ", status=" + status + ", version="
-				+ version + ", createTime=" + createTime + "]";
+				+ version + ", author=" + author + ", image=" + image + ", createTime=" + createTime + "]";
 	}
+
+	
 
 	
 	

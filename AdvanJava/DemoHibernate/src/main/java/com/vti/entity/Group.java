@@ -3,11 +3,14 @@ package com.vti.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -17,29 +20,27 @@ import org.hibernate.annotations.CreationTimestamp;
 @Entity
 @Table(name = "Group", catalog = "TestingSystem")
 public class Group implements Serializable{
-	private static final long serialVersionUID = 1L;
-
+private static final long serialVersionUID = 1L;
+	
 	@Column(name = "id")
 	@Id
-	// auto increment
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private short id;
-
-	@Column(name = "name", length = 50, nullable = false, unique = true)
+	
+	@Column(name = "name", length = 50, unique = true, nullable = false)
 	private String name;
-
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "author_ID", referencedColumnName = "id")
+	private User author;
+	
 	@Column(name = "create_time", nullable = false, updatable = false, insertable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	@CreationTimestamp
 	private Date createTime;
-
-	@Column(name = "create_time", nullable = false, updatable = false, insertable = false)
-	@Temporal(TemporalType.TIMESTAMP)
-	@CreationTimestamp
-	private Date createDate;
-
+ 
 	public Group() {
-
+		
 	}
 
 	public short getId() {
@@ -58,21 +59,34 @@ public class Group implements Serializable{
 		this.name = name;
 	}
 
-	public Date getCreateDate() {
-		return getCreateDate();
+	
+	public User getUser() {
+		return author;
 	}
 
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
+	public void setUser(User user) {
+		this.author = user;
 	}
 
-//	public static long getSerialversionuid() {
-//		return serialVersionUID;
-//	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+	
 	@Override
 	public String toString() {
-		return "Group [id=" + id + ", name=" + name + ", createDate=" + createDate + "]";
+		String result = "ID: " + id	
+						+ "\tName: " + name
+						+ "\tCreateTime: " + createTime
+						+ "\tUser: " + author;
+		return result;
 	}
 
 }
